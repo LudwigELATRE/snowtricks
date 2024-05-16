@@ -32,6 +32,9 @@ class RegisterController extends AbstractController
         if($form->isSubmitted() && $form->isValid())
         {
             $user = $form->getData();
+            $user->setRoles(['ROLE_USER']);
+            $user->setCreatedAt(new \DateTimeImmutable());
+            $user->setValidate(true);
 
             $password = $userPasswordHasher->hashPassword($user, $user->getPassword());
 
@@ -40,7 +43,9 @@ class RegisterController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->flush();
 
-            return $this->redirectToRoute('app_login');
+            $this->addFlash('success', 'Votre Compte a bien été créé.');
+
+            return $this->redirectToRoute('login');
         }
 
         return $this->render('register/index.html.twig', [
