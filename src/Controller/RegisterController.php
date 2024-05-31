@@ -42,6 +42,7 @@ class RegisterController extends AbstractController
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setValidate(true);
 
+
             $password = $userPasswordHasher->hashPassword($user, $user->getPassword());
             $user->setPassword($password);
             try {

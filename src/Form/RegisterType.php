@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
@@ -39,6 +40,18 @@ class RegisterType extends AbstractType
                     'placeholder' => 'Merci de saisir votre nom.',
                     'class' => 'form-control',
                 ]
+            ])
+            ->add('gender', ChoiceType::class, [
+                'label' => false,
+                'choices' => [
+                    'Homme' => 'men',
+                    'Femme' => 'woman',
+                    'Autre' => 'other',
+                ],
+                'placeholder' => 'Sélectionnez votre genre',
+                'attr' => [
+                    'class' => 'form-control',
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => false,

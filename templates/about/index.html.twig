@@ -2,19 +2,36 @@
 
 {% block title %}About - Snowtricks{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/ludwig.elatre@ebp.local/Documents/Snowtricks/snowtricks/src/Controller/AboutController.php</code></li>
-        <li>Your template at <code>/home/ludwig.elatre@ebp.local/Documents/Snowtricks/snowtricks/templates/about/index.html.twig</code></li>
-    </ul>
-</div>
+{% block main %}
+    <section class="py-5">
+        <div class="container">
+            <div class="row gx-4 align-items-center justify-content-between">
+                <div class="col-md-5 order-2 order-md-1">
+                    <div class="mt-5 mt-md-0">
+                        <h5 class="text-muted">Notre histoire</h5>
+                        <h2 class="display-5 fw-bold">A propos de nous</h2>
+                        <p class="lead">Bienvenue sur SnowTricks, votre destination ultime pour tout ce qui concerne le snowboard. Nous sommes passionnés par la poudreuse, les figures aériennes et l'esprit communautaire qui anime ce sport incroyable.</p>
+                        <p class="lead">Chez SnowTricks, notre mission est de vous inspirer, de vous informer et de vous connecter avec une communauté de snowboarders partageant les mêmes idées. Que vous soyez un débutant cherchant à maîtriser vos premières descentes ou un expert en quête de nouveaux défis, nous avons quelque chose pour vous.</p>
+                        <p class="lead">Rejoignez-nous pour des tutoriels détaillés, des conseils de pros, et des histoires inspirantes de riders du monde entier. Ensemble, faisons de chaque ride une aventure mémorable.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 offset-md-1 order-1 order-md-2">
+                    <div class="row gx-2 gx-lg-3">
+                        <div class="col-6">
+                            <div class="mb-2"><img class="img-fluid rounded-3" src="{{ asset('assets/images/about/about-1.webp') }}"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2"><img class="img-fluid rounded-3" src="{{ asset('assets/images/about/about-2.webp') }}"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2"><img class="img-fluid rounded-3" src="{{ asset('assets/images/about/about-3.webp') }}"></div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-2"><img class="img-fluid rounded-3" src="{{ asset('assets/images/about/about-4.webp') }}"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
