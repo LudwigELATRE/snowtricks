@@ -76,8 +76,7 @@ class RegisterType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-primary btn-lg',
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

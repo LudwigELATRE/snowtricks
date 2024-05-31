@@ -47,7 +47,19 @@
 
             <div class="col-md-3 text-end">
                 {% if app.user %}
+{#
                     <a type="button" class="btn btn-outline-primary me-2" href="{{ path('logout') }}">Deconexion</a>
+#}
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.firstname }} {{ app.user.lastname }}
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ path('account') }}">Profil</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="{{ path('logout') }}">Deconexion</a></li>
+                        </ul>
+                    </div>
                 {% else %}
                 <a type="button" class="btn btn-outline-primary me-2" href="{{ path('login') }}">Connexion</a>
                 <a type="button" class="btn btn-primary" href="{{ path('register') }}">S'inscrire</a>
