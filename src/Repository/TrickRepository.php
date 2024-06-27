@@ -35,6 +35,17 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findAllWithImagesByUserId($userId): array
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.images', 'i')
+            ->addSelect('i')
+            ->where('t.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
     /**
      * Récupère un trick par son slug avec ses images respectives
      *
