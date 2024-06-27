@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Account - Snowtricks{% endblock %}
+{% block title %}Compte - Snowtricks{% endblock %}
 
 {% block main %}
     <div class="container">
@@ -10,11 +10,21 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="{{ asset(app.user.avatar) }}" alt="Admin" class="rounded-circle" width="150">
+                                {% if app.user.avatar is defined and app.user.avatar is not null %}
+                                    <img src="{{ asset(app.user.avatar) }}" alt="avatar" class="rounded-circle" width="300" height="300">
+                                {% else %}
+                                    {% if app.user.gender == "male" %}
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle" width="300" height="300">
+                                    {% elseif app.user.gender == "female" %}
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4.webp" alt="avatar" class="rounded-circle" width="300" height="300">
+                                    {% elseif app.user.gender == "other" %}
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6.webp" alt="avatar" class="rounded-circle" width="300" height="300">
+                                    {% endif %}
+                                {% endif %}
                                 <div class="mt-3">
                                     <h4>{{ app.user.firstname }} {{ app.user.lastname }}</h4>
                                     <p class="text-secondary mb-1">{{ app.user.bio }}</p>
-                                    <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p>
+                                    <p class="text-muted font-size-sm">{{ app.user.address }}</p>
                                     <a class="btn btn-outline-primary" href="{{ path('trick_new') }}">Ajouter Tricks</a>
                                     <a class="btn btn-outline-primary" href="{{ path('trick_show') }}">Voir mes Tricks</a>
                                 </div>
@@ -30,16 +40,16 @@
                                     <h6 class="mb-0">Nom</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    {{ app.user.firstname }}
+                                    {{ app.user.firstname }} {{ app.user.lastname }}
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-3">
-                                    <h6 class="mb-0">Prenom</h6>
+                                    <h6 class="mb-0">Age</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    {{ app.user.lastname }}
+                                    {{ app.user.age }} ans
                                 </div>
                             </div>
                             <hr>
@@ -57,7 +67,7 @@
                                     <h6 class="mb-0">Phone</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    (239) 816-9029
+                                    {{ app.user.phone }}
                                 </div>
                             </div>
                             <hr>
@@ -75,13 +85,13 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    Bay Area, San Francisco, CA
+                                    {{ app.user.address }}
                                 </div>
                             </div>
                             <hr>
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a class="btn btn-info" href="{{ path('account_edit') }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ path('account_edit') }}">Modifier</a>
                                 </div>
                             </div>
                         </div>

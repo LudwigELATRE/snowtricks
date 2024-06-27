@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Category{% endblock %}
+{% block title %}Compte - Snowtricks{% endblock %}
 
 {% block main %}
     <div class="container mt-5">
@@ -38,9 +38,7 @@
         </div>
 
         {{ form_end(form) }}
-
-        <!-- Bouton Retour en bas à droite -->
-        <div class="position-fixed bottom-0 end-0 p-3">
+        <div class="d-flex flex-row-reverse bottom-0 end-0 p-3">
             <a href="{{ path('account') }}" class="btn btn-primary">Retour</a>
         </div>
     </div>

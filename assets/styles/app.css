@@ -21,3 +21,35 @@ button.btn.btn-danger.remove-image {
 footer {
     background-color: #f8f9fa;
 }
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Le bouton est caché par défaut */
+    z-index: 100; /* Assurez-vous que le bouton soit au-dessus des autres éléments */
+}
+
+#test1 {
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 0.5s; /* don't forget to set a duration! */
+}
+
+#test2 {
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s; /* don't forget to set a duration! */
+}
+
+#test3 {
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s; /* don't forget to set a duration! */
+}
+
+#test4 {
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+}
+
+#about {
+    animation: zoomInDownt; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 6s; /* don't forget to set a duration! */
+}
