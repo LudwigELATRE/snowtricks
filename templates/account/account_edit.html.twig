@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le Compte{% endblock %}
+
+{% block main %}
+    <div class="container mt-5">
+        <h1>Modifier le Compte</h1>
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+            {{ form_label(form.user.firstname) }}
+            {{ form_widget(form.user.firstname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.user.firstname) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.user.lastname) }}
+            {{ form_widget(form.user.lastname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.user.lastname) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.user.bio) }}
+            {{ form_widget(form.user.bio, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.user.bio) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.user.gender) }}
+            {{ form_widget(form.user.gender, {'attr': {'class': 'form-check'}}) }}
+            {{ form_errors(form.user.gender) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.image.file) }}
+            {{ form_widget(form.image.file, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.image.file) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.image.caption) }}
+            {{ form_widget(form.image.caption, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(form.image.caption) }}
+        </div>
+
+        <div>
+            {{ form_widget(form.submit) }}
+        </div>
+
+        {{ form_end(form) }}
+
+        <!-- Bouton Retour en bas à droite -->
+        <div class="position-fixed bottom-0 end-0 p-3">
+            <a href="{{ path('account') }}" class="btn btn-primary">Retour</a>
+        </div>
+    </div>
+{% endblock %}

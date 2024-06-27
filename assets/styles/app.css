@@ -2,3 +2,22 @@ section.login-container {
     margin-top: 210px;
     margin-bottom: 210px;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+}
+.container-flex {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+button.btn.btn-danger.remove-image {
+    margin: 10px 10px 10px 0px;
+}
+.content {
+    flex: 1;
+}
+footer {
+    background-color: #f8f9fa;
+}
