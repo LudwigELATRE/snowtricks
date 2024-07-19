@@ -2,10 +2,21 @@ section.login-container {
     margin-top: 210px;
     margin-bottom: 210px;
 }
-html, body {
+html {
     height: 100%;
     margin: 0;
 }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
 .container-flex {
     display: flex;
     flex-direction: column;
@@ -53,3 +64,24 @@ footer {
     animation: zoomInDownt; /* referring directly to the animation's @keyframe declaration */
     animation-duration: 6s; /* don't forget to set a duration! */
 }
+
+img.d-block.img-thumbnail {
+    height: 320px !important;
+}
+
+#description {
+    border: 1px solid #d5d5d5;
+    border-radius: 12px;
+    padding: 15px; /* Augmenter légèrement le padding pour plus d'espace */
+    background-color: #f9f9f9; /* Ajouter un fond clair pour plus de contraste */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre pour un effet de profondeur */
+    transition: all 0.3s ease; /* Ajouter une transition pour des effets lisses */
+}
+
+/*
+div.carousel div.carousel-item>iframe {
+    width: 100%;
+    height: 18.75rem;
+    border: 0;
+    display: block;
+}*/

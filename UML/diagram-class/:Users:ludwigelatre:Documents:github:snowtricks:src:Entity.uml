@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>PHP</ID>
+  <OriginalElement>/Users/ludwigelatre/Documents/github/snowtricks/src/Entity</OriginalElement>
+  <nodes>
+    <node x="-161.5" y="-1.5">\App\Entity\Contact</node>
+    <node x="664.5" y="134.5">\Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface</node>
+    <node x="722.0" y="302.5">\App\Entity\Trick</node>
+    <node x="267.5" y="454.5">\App\Entity\Image</node>
+    <node x="71.5" y="334.5">\App\Entity\Category</node>
+    <node x="491.5" y="230.5">\Symfony\Component\Security\Core\User\UserInterface</node>
+    <node x="1102.0" y="-13.5">\App\Entity\User</node>
+    <node x="252.0" y="-5.5">\App\Entity\Comment</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="\App\Entity\User" target="\Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface" relationship="REALIZATION">
+      <point x="-105.0" y="0.0" />
+      <point x="1067.0" y="426.0" />
+      <point x="1067.0" y="286.0" />
+      <point x="1047.0" y="286.0" />
+      <point x="1047.0" y="166.0" />
+      <point x="162.5" y="0.0" />
+    </edge>
+    <edge source="\App\Entity\User" target="\Symfony\Component\Security\Core\User\UserInterface" relationship="REALIZATION">
+      <point x="-105.0" y="0.0" />
+      <point x="1067.0" y="426.0" />
+      <point x="1067.0" y="286.0" />
+      <point x="75.5" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.3353413654618473" showDependencies="false" x="585.0" y="438.00000000000006" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+  </Categories>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

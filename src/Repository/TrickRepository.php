@@ -84,7 +84,7 @@ class TrickRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->leftJoin('t.images', 'i')
             ->addSelect('i')
-            ->setMaxResults(3)
+            ->setMaxResults(4)
             ->getQuery()
             ->getResult();
     }

@@ -110,7 +110,7 @@ class AccountController extends AbstractController
         ]);
     }
 
-    #[Route('/new/trick', name: 'trick_new', methods: ['GET', 'POST'])]
+    #[Route('/new/trick', name: 'trick_new', methods: ['GET', 'POST',])]
     public function new(Request $request,EntityManagerInterface $entityManager, Security $security, UploadImage $uploadImage): Response
     {
         $trick = new Trick();
