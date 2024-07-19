@@ -39,10 +39,20 @@ class TrickType extends AbstractType
                     'class' => 'form-label',
                 ],
             ])
+            ->add('urlYoutube', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                ],
+                'label' => 'Url du Trick',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+            ])
             ->add('images', CollectionType::class, [
                 'entry_type' => ImageType::class,
                 'entry_options' => [
                     'label' => false,
+                    'required' => true,
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,

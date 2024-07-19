@@ -39,6 +39,9 @@ class Trick
     #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'trick', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $images;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlYoutube = null;
+
     public function __construct()
     {
         $this->comment = new ArrayCollection();
@@ -185,6 +188,18 @@ class Trick
                 $image->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUrlYoutube(): ?string
+    {
+        return $this->urlYoutube;
+    }
+
+    public function setUrlYoutube(?string $urlYoutube): static
+    {
+        $this->urlYoutube = $urlYoutube;
 
         return $this;
     }

@@ -21,6 +21,22 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * @return Comment[] Returns an array of Comment objects with User information
+     */
+    public function findByTrickWithUser(int $trickId): array
+    {
+        return $this->createQueryBuilder('c')
+            ->innerJoin('c.user', 'u')
+            ->addSelect('u')
+            ->andWhere('c.trick = :trickId')
+            ->andWhere('c.disabled = false')
+            ->setParameter('trickId', $trickId)
+            ->orderBy('c.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Comment[] Returns an array of Comment objects
     //     */

@@ -4,11 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Image;
 use App\Entity\Trick;
-use App\Entity\User;
 use App\Form\ImageType;
 use App\Form\TrickType;
 use App\Form\UserType;
-use App\Repository\ImageRepository;
 use App\Repository\TrickRepository;
 use App\Service\UploadImage;
 use DateTimeImmutable;
@@ -16,7 +14,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -32,10 +29,18 @@ class AccountController extends AbstractController
     }
 
     #[Route('/my-tricks', name: 'trick_show')]
-    public function show(TrickRepository $trickRepository): Response
+    public function show(TrickRepository $trickRepository, Security $security): Response
     {
-        $tricks = $trickRepository->findAllWithImages();
+        // Obtenir l'utilisateur actuellement connecté
+        $user = $security->getUser();
 
+        // Si l'utilisateur n'est pas connecté, rediriger ou gérer l'erreur
+        if (!$user) {
+            throw $this->createAccessDeniedException('You must be logged in to view your tricks.');
+        }
+
+        // Récupérer les tricks de l'utilisateur connecté
+        $tricks = $trickRepository->findAllWithImagesByUserId($user->getId());
         return $this->render('account/show.html.twig', [
             'tricks' => $tricks,
         ]);
@@ -51,24 +56,6 @@ class AccountController extends AbstractController
         ]);
     }
 
-
-    #[Route('/new/trick', name: 'trick_new', methods: ['GET', 'POST'])]
-    public function new(Request $request,EntityManagerInterface $entityManager, Security $security, UploadImage $uploadImage): Response
-    {
-        $trick = new Trick();
-        $form = $this->createForm(TrickType::class, $trick);
-        $form->handleRequest($request);
-
-        if($this->submitForm($form,$trick, $entityManager, $security, $uploadImage)) {
-            return $this->redirectToRoute('account', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('account/trick_new.html.twig', [
-            'trick' => $trick,
-            'form' => $form->createView(),
-        ]);
-    }
-
     #[Route('/trick/delete/{id}', name: 'trick_delete')]
     public function deleteTrick(int $id, TrickRepository $trickRepository): Response
     {
@@ -80,6 +67,7 @@ class AccountController extends AbstractController
     #[Route('/edit', name: 'account_edit', methods: ['GET', 'POST'])]
     public function editAccount(Request $request, EntityManagerInterface $entityManager, UploadImage $uploadImage, Security $security): Response {
         $user = $this->getUser();
+        $currentAvatarPath = $user->getAvatar();
         $image = new Image();
 
         $formBuilder = $this->createFormBuilder();
@@ -107,7 +95,10 @@ class AccountController extends AbstractController
                 if ($savedImage) {
                     $user->setAvatar($savedImage->getPath());
                 }
+            }else {
+                $user->setAvatar($currentAvatarPath);
             }
+
             $entityManager->persist($user);
             $entityManager->flush();
 
@@ -119,6 +110,22 @@ class AccountController extends AbstractController
         ]);
     }
 
+    #[Route('/new/trick', name: 'trick_new', methods: ['GET', 'POST'])]
+    public function new(Request $request,EntityManagerInterface $entityManager, Security $security, UploadImage $uploadImage): Response
+    {
+        $trick = new Trick();
+        $form = $this->createForm(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if($this->submitForm($form,$trick, $entityManager, $security, $uploadImage)) {
+            return $this->redirectToRoute('account', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->render('account/trick_new.html.twig', [
+            'trick' => $trick,
+            'form' => $form->createView(),
+        ]);
+    }
 
     #[Route('/{slug}/update', name: 'trick_edit', methods: ['GET', 'POST'])]
     public function editTrick(string $slug,TrickRepository $trickRepository, Request $request, EntityManagerInterface $entityManager, Security $security, UploadImage $uploadImage): Response
@@ -147,6 +154,8 @@ class AccountController extends AbstractController
             $trick->setSlug($slug);
             $trick->setUser($user);
             $trick->setCreatedAt($createdAt);
+            $url = $this->getYoutubeVideoId($trick->getUrlYoutube());
+            $trick->setUrlYoutube('https://www.youtube.com/embed/'.$url);
 
             // Gestion des images
             foreach ($trick->getImages() as $image) {
@@ -165,4 +174,9 @@ class AccountController extends AbstractController
         return false;
     }
 
+    private function getYoutubeVideoId($url): ?string {
+    $pattern = '/^(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/';
+    preg_match($pattern, $url, $matches);
+    return isset($matches[1]) ? $matches[1] : null;
+}
 }
