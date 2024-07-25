@@ -2,3 +2,86 @@ section.login-container {
     margin-top: 210px;
     margin-bottom: 210px;
 }
+html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.flex-grow-1 {
+    flex-grow: 1;
+}
+
+.container-flex {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+button.btn.btn-danger.remove-image {
+    margin: 10px 10px 10px 0px;
+}
+.content {
+    flex: 1;
+}
+footer {
+    background-color: #f8f9fa;
+}
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none; /* Le bouton est caché par défaut */
+    z-index: 100; /* Assurez-vous que le bouton soit au-dessus des autres éléments */
+}
+
+#test1 {
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 0.5s; /* don't forget to set a duration! */
+}
+
+#test2 {
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1s; /* don't forget to set a duration! */
+}
+
+#test3 {
+    animation: backInLeft; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 1.5s; /* don't forget to set a duration! */
+}
+
+#test4 {
+    animation: backInRight; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 2s; /* don't forget to set a duration! */
+}
+
+#about {
+    animation: zoomInDownt; /* referring directly to the animation's @keyframe declaration */
+    animation-duration: 6s; /* don't forget to set a duration! */
+}
+
+img.d-block.img-thumbnail {
+    height: 320px !important;
+}
+
+#description {
+    border: 1px solid #d5d5d5;
+    border-radius: 12px;
+    padding: 15px; /* Augmenter légèrement le padding pour plus d'espace */
+    background-color: #f9f9f9; /* Ajouter un fond clair pour plus de contraste */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ajouter une ombre pour un effet de profondeur */
+    transition: all 0.3s ease; /* Ajouter une transition pour des effets lisses */
+}
+
+/*
+div.carousel div.carousel-item>iframe {
+    width: 100%;
+    height: 18.75rem;
+    border: 0;
+    display: block;
+}*/

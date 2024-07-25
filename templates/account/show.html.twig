@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Compte - Snowtricks{% endblock %}
+
+{% block main %}
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container text-center">
+            <h1>Mes Tricks</h1>
+            {% if tricks is empty %}
+                <p class="mt-4">You don't have any tricks yet.</p>
+                <a href="{{ path('trick_new') }}" class="btn btn-primary mt-2">Add a New Trick</a>
+            {% else %}
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 mt-4">
+                    {% for trick in tricks %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                {% if trick.images|length > 0 %}
+                                    {% set image = trick.images[0] %}
+                                    <img src="{{ asset(image.path) }}" class="card-img-top" alt="{{ image.caption }}">
+                                {% else %}
+                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                                        <title>Placeholder</title>
+                                        <rect width="100%" height="100%" fill="#55595c"></rect>
+                                        <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
+                                    </svg>
+                                {% endif %}
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ trick.title }}</h5>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('trick_edit', {'slug': trick.slug}) }}">Modifier</a>
+                                            <a type="button" class="btn btn-sm btn-outline-secondary" href="{{ path('trick_delete', {'id': trick.id}) }}">Supprimer</a>
+                                        </div>
+                                        <small class="text-body-secondary">9 mins</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <!-- Bouton Retour en bas à droite -->
+            <div class="d-flex flex-row-reverse bottom-0 end-0 p-3">
+                <a href="{{ path('account') }}" class="btn btn-primary">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

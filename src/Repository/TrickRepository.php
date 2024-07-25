@@ -21,6 +21,73 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
+    /**
+     * Récupère tous les tricks avec leurs images respectives
+     *
+     * @return Trick[]
+     */
+    public function findAllWithImages(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.images', 'i')
+            ->addSelect('i')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllWithImagesByUserId($userId): array
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.images', 'i')
+            ->addSelect('i')
+            ->where('t.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * Récupère un trick par son slug avec ses images respectives
+     *
+     * @param string $slug
+     * @return Trick|null
+     */
+    public function findOneBySlugWithImages(string $slug): ?Trick
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.images', 'i')
+            ->addSelect('i')
+            ->where('t.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function removeTrickAndAssociations(int $trickId): void
+    {
+        $entityManager = $this->getEntityManager();
+        $trick = $this->find($trickId);
+
+        if ($trick) {
+            $entityManager->remove($trick);
+            $entityManager->flush();
+        }
+    }
+
+    /**
+     * Récupère jusqu'à 3 tricks avec leurs images respectives
+     *
+     * @return array
+     */
+    public function findTricksWithImages(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->leftJoin('t.images', 'i')
+            ->addSelect('i')
+            ->setMaxResults(4)
+            ->getQuery()
+            ->getResult();
+    }
     //    /**
     //     * @return Trick[] Returns an array of Trick objects
     //     */

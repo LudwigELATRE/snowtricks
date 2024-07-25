@@ -18,44 +18,35 @@ class Trick
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
-
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "text")]
     private ?string $content = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $slug = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
-
     #[ORM\ManyToOne(inversedBy: 'tricks')]
-    private ?User $user_id = null;
+    private ?User $user = null;
 
-    /**
-     * @var Collection<int, Comment>
-     */
-    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick')]
-    private Collection $comment_id;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, Category>
-     */
+    #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'trick', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $comment;
+
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'tricks')]
-    private Collection $category_id;
+    private Collection $category;
 
-    /**
-     * @var Collection<int, Image>
-     */
-    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'trick')]
-    private Collection $image_id;
+    #[ORM\OneToMany(targetEntity: Image::class, mappedBy: 'trick', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $images;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $urlYoutube = null;
 
     public function __construct()
     {
-        $this->comment_id = new ArrayCollection();
-        $this->category_id = new ArrayCollection();
-        $this->image_id = new ArrayCollection();
+        $this->comment = new ArrayCollection();
+        $this->images = new ArrayCollection();
+        $this->category = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -71,7 +62,6 @@ class Trick
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -83,7 +73,6 @@ class Trick
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -95,7 +84,6 @@ class Trick
     public function setContent(string $content): static
     {
         $this->content = $content;
-
         return $this;
     }
 
@@ -107,58 +95,44 @@ class Trick
     public function setSlug(?string $slug): static
     {
         $this->slug = $slug;
-
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUser(): ?User
     {
-        return $this->updatedAt;
+        return $this->user;
     }
 
-    public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
+    public function setUser(?User $user): static
     {
-        $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getUserId(): ?User
-    {
-        return $this->user_id;
-    }
-
-    public function setUserId(?User $user_id): static
-    {
-        $this->user_id = $user_id;
-
+        $this->user = $user;
         return $this;
     }
 
     /**
      * @return Collection<int, Comment>
      */
-    public function getCommentId(): Collection
+    public function getComment(): Collection
     {
-        return $this->comment_id;
+        return $this->comment;
     }
 
-    public function addCommentId(Comment $commentId): static
+    public function addComment(Comment $comment): static
     {
-        if (!$this->comment_id->contains($commentId)) {
-            $this->comment_id->add($commentId);
-            $commentId->setTrick($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment->add($comment);
+            $comment->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeCommentId(Comment $commentId): static
+    public function removeComment(Comment $comment): static
     {
-        if ($this->comment_id->removeElement($commentId)) {
+        if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($commentId->getTrick() === $this) {
-                $commentId->setTrick(null);
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
             }
         }
 
@@ -168,53 +142,64 @@ class Trick
     /**
      * @return Collection<int, Category>
      */
-    public function getCategoryId(): Collection
+    public function getCategory(): Collection
     {
-        return $this->category_id;
+        return $this->category;
     }
 
-    public function addCategoryId(Category $categoryId): static
+    public function addCategory(Category $category): static
     {
-        if (!$this->category_id->contains($categoryId)) {
-            $this->category_id->add($categoryId);
+        if (!$this->category->contains($category)) {
+            $this->category->add($category);
         }
 
         return $this;
     }
 
-    public function removeCategoryId(Category $categoryId): static
+    public function removeCategory(Category $category): static
     {
-        $this->category_id->removeElement($categoryId);
-
+        $this->category->removeElement($category);
         return $this;
     }
 
     /**
      * @return Collection<int, Image>
      */
-    public function getImageId(): Collection
+    public function getImages(): Collection
     {
-        return $this->image_id;
+        return $this->images;
     }
 
-    public function addImageId(Image $imageId): static
+    public function addImage(Image $image): static
     {
-        if (!$this->image_id->contains($imageId)) {
-            $this->image_id->add($imageId);
-            $imageId->setTrick($this);
+        if (!$this->images->contains($image)) {
+            $this->images->add($image);
+            $image->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeImageId(Image $imageId): static
+    public function removeImage(Image $image): static
     {
-        if ($this->image_id->removeElement($imageId)) {
+        if ($this->images->removeElement($image)) {
             // set the owning side to null (unless already changed)
-            if ($imageId->getTrick() === $this) {
-                $imageId->setTrick(null);
+            if ($image->getTrick() === $this) {
+                $image->setTrick(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUrlYoutube(): ?string
+    {
+        return $this->urlYoutube;
+    }
+
+    public function setUrlYoutube(?string $urlYoutube): static
+    {
+        $this->urlYoutube = $urlYoutube;
 
         return $this;
     }

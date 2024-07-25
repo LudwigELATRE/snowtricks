@@ -18,5 +18,13 @@ services:
       - "8080:80"
     environment:
       - PMA_ARBITRARY=1
+  #mailhog:
+    #container_name: mailhog
+    #image: mailhog/mailhog
+    #logging:
+      #driver: 'none'
+    #ports:
+      #- 1025:1025 #SMTP
+      #- 8025:8025 #boite mail
 volumes:
   my-db:
