@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class TrickType extends AbstractType
 {
@@ -52,7 +53,11 @@ class TrickType extends AbstractType
                 'entry_type' => ImageType::class,
                 'entry_options' => [
                     'label' => false,
-                    'required' => true,
+                    'constraints' => [
+                        new NotBlank([
+                            'message' => 'L\'image est obligatoire.',
+                        ]),
+                    ]
                 ],
                 'allow_add' => true,
                 'allow_delete' => true,

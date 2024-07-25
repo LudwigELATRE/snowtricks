@@ -26,10 +26,10 @@ class CommentType extends AbstractType
                         'message' => 'Please enter a comment',
                     ]),
                     new Length([
-                        'min' => 10,
-                        'minMessage' => 'Your comment should be at least {{ limit }} characters',
+                        'min' => 5,
+                        'minMessage' => 'Votre commentaire doit comporter au moins {{ limite }} caractères.',
                         'max' => 1000,
-                        'maxMessage' => 'Your comment cannot be longer than {{ limit }} characters',
+                        'maxMessage' => 'Votre commentaire ne peut pas dépasser {{ limite }} caractères',
                     ]),
                 ],
                 'attr' => [

@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ImageType extends AbstractType
 {
@@ -16,12 +17,17 @@ class ImageType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label' => 'Fichier',
-                'required' => false,
+                'required' => true,
                 'attr' => [
                     'class' => 'form-control',
                 ],
                 'label_attr' => [
                     'class' => 'form-label',
+                ],
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'L\'image est obligatoire.',
+                    ]),
                 ],
             ])
             ->add('caption', TextType::class, [
