@@ -1,6 +1,6 @@
-# Projet Symfony Simple
+# Projet : Site Collaboratif de Snowboard
 
-Ce projet est un exemple de projet Symfony simple qui utilise Docker pour faciliter le développement et le déploiement.
+Jimmy Sweat, un entrepreneur ambitieux et passionné de snowboard, a pour objectif de créer un site collaboratif destiné à promouvoir ce sport auprès du grand public et à aider à l'apprentissage des figures (tricks). Il souhaite exploiter du contenu généré par les internautes pour développer un site riche et attractif. À terme, Jimmy envisage de monétiser le site en établissant des partenariats avec des marques de snowboard, profitant du trafic généré par le contenu.
 
 ## Prérequis
 
